@@ -1,0 +1,161 @@
+{
+  "id": "sample-cafe-ordering",
+  "title": "Ordering at a Cafe",
+  "level": "Beginner",
+  "topic": "Cafe",
+  "speakingGoal": "Order a drink naturally and ask about options.",
+  "grammarGoal": "Use 주세요 and simple choice questions.",
+  "warmupQuestions": [
+    "What drinks do you usually order?",
+    "Do you prefer hot drinks or iced drinks?",
+    "Have you ordered in Korean before?"
+  ],
+  "keyExpressions": [
+    {
+      "expression": "아메리카노 한 잔 주세요.",
+      "meaning": "One Americano, please.",
+      "usage": "Ordering a drink",
+      "notes": "Basic cafe pattern"
+    },
+    {
+      "expression": "따뜻한 거예요, 아이스예요?",
+      "meaning": "Is it hot or iced?",
+      "usage": "Asking about options",
+      "notes": "Useful either-or question"
+    },
+    {
+      "expression": "큰 사이즈로 주세요.",
+      "meaning": "Please make it a large size.",
+      "usage": "Changing the size",
+      "notes": "Use 로 for the chosen option"
+    },
+    {
+      "expression": "여기서 마실게요.",
+      "meaning": "I will drink it here.",
+      "usage": "At checkout",
+      "notes": "Common fixed phrase"
+    },
+    {
+      "expression": "뭐가 제일 많이 나가요?",
+      "meaning": "What sells the most?",
+      "usage": "Asking for a recommendation",
+      "notes": "Natural cafe question"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "korean": "어서 오세요.",
+      "translation": "Welcome."
+    },
+    {
+      "speaker": "B",
+      "korean": "아메리카노 한 잔 주세요.",
+      "translation": "One Americano, please."
+    },
+    {
+      "speaker": "A",
+      "korean": "따뜻한 거예요, 아이스예요?",
+      "translation": "Is it hot or iced?"
+    },
+    {
+      "speaker": "B",
+      "korean": "아이스로 주세요.",
+      "translation": "Iced, please."
+    },
+    {
+      "speaker": "A",
+      "korean": "작은 사이즈예요, 큰 사이즈예요?",
+      "translation": "Small size or large size?"
+    },
+    {
+      "speaker": "B",
+      "korean": "큰 사이즈로 주세요.",
+      "translation": "Large size, please."
+    }
+  ],
+  "pronunciationNotes": [
+    "Chunk the sentence as 아메리카노 / 한 잔 / 주세요.",
+    "Raise the intonation slightly for choice questions.",
+    "Repeat 큰 사이즈 and 작은 사이즈 slowly before saying them at full speed."
+  ],
+  "grammar": [
+    {
+      "name": "N + 주세요",
+      "form": "noun + 주세요",
+      "meaning": "Please give me noun.",
+      "whyItAppears": "It is the basic pattern for ordering.",
+      "commonMistake": "Learners sometimes say only the menu item without 주세요.",
+      "examples": [
+        "물 주세요.",
+        "케이크도 주세요."
+      ]
+    },
+    {
+      "name": "N + 로 주세요",
+      "form": "noun + 로 주세요",
+      "meaning": "Please make it or give it as noun.",
+      "whyItAppears": "It helps learners choose a size or option.",
+      "commonMistake": "Learners often confuse 로 with 를.",
+      "examples": [
+        "뜨거운 걸로 주세요.",
+        "이걸로 주세요."
+      ]
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "주문",
+      "coreMeaning": "order",
+      "collocations": "주문하다, 주문을 받다",
+      "example": "지금 주문할게요."
+    },
+    {
+      "word": "사이즈",
+      "coreMeaning": "size",
+      "collocations": "큰 사이즈, 작은 사이즈",
+      "example": "큰 사이즈 있어요?"
+    },
+    {
+      "word": "추천",
+      "coreMeaning": "recommendation",
+      "collocations": "추천하다, 추천 메뉴",
+      "example": "추천 메뉴 뭐예요?"
+    },
+    {
+      "word": "따뜻하다",
+      "coreMeaning": "to be warm",
+      "collocations": "따뜻한 커피, 따뜻한 차",
+      "example": "저는 따뜻한 커피 좋아해요."
+    },
+    {
+      "word": "아이스",
+      "coreMeaning": "iced",
+      "collocations": "아이스 아메리카노, 아이스로 하다",
+      "example": "아이스로 바꿔 주세요."
+    }
+  ],
+  "substitution": {
+    "basePattern": "___ 한 잔 주세요.",
+    "examples": [
+      "라테 한 잔 주세요.",
+      "차 한 잔 주세요.",
+      "주스 한 잔 주세요."
+    ]
+  },
+  "freeSpeakingQuestions": [
+    "카페에서 보통 뭘 마셔요?",
+    "한국 카페에서 주문해 본 적 있어요?",
+    "좋아하는 음료를 한국어로 설명할 수 있어요?"
+  ],
+  "roleplayPractice": [
+    "Teacher is the cafe worker and student is the customer.",
+    "Change the drink and order again.",
+    "Add one follow-up question about size or temperature."
+  ],
+  "homework": [
+    "Record yourself ordering three different drinks in Korean.",
+    "Write a four-line cafe dialogue.",
+    "Review 주세요 and 로 주세요."
+  ]
+}

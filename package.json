@@ -1,0 +1,11 @@
+{
+  "name": "learningkorean",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Protected Korean lesson materials with time-limited lesson links.",
+  "scripts": {
+    "start": "node app/server.js",
+    "generate-link": "node scripts/generate-link.js",
+    "check": "node scripts/check-lessons.js"
+  }
+}

@@ -1,6 +1,6 @@
 # Learning Korean Lesson Templates
 
-This repository contains reusable lesson templates for teaching Korean on Preply.
+This repository contains reusable lesson templates for teaching Korean on Preply, plus a small lesson app that protects access with time-limited links.
 
 ## Goal
 
@@ -24,6 +24,12 @@ Build practical lesson materials for beginner, intermediate, and advanced learne
   - Prompt for converting learner ideas into natural Korean teaching material
 - `samples/sample-beginner-lesson-cafe-ordering.md`
   - Example beginner lesson
+- `data/lessons/sample-cafe-ordering.json`
+  - Example lesson used by the protected lesson site
+- `app/server.js`
+  - Small Node server that checks signed lesson links
+- `scripts/generate-link.js`
+  - Script for making a lesson URL that expires automatically
 
 ## Recommended Teaching Flow
 
@@ -56,3 +62,43 @@ Build practical lesson materials for beginner, intermediate, and advanced learne
   - TOPIK speaking
 - Add separate pronunciation drill packs.
 - Add culture notes for common misunderstandings.
+
+## Protected Lesson Access
+
+This app is designed so you can send a lesson URL to a student before class without leaving the lesson open forever.
+
+### How it works
+
+1. You keep a server-side secret in `.env`.
+2. Before class, you generate a signed lesson URL for one student.
+3. The link includes an expiration time.
+4. When the time is over, the lesson page stops working.
+
+This is much safer than putting a password only in the front-end, because the expiration check and signature validation happen on the server.
+
+### Setup
+
+1. Copy `.env.example` to `.env`
+2. Set a long random value for `APP_SECRET`
+3. Start the app:
+
+```bash
+npm start
+```
+
+4. Generate a lesson link:
+
+```bash
+npm run generate-link -- sample-cafe-ordering "Student Name" 60
+```
+
+This creates a signed URL that works for 60 minutes.
+
+### Current Limits
+
+- A student can still share the link during the valid time window.
+- For even stronger protection later, you can add:
+  - one-time-use tokens
+  - email login
+  - teacher approval
+  - student accounts
