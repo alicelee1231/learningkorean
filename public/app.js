@@ -1,6 +1,8 @@
 (function () {
   const durationScript = document.getElementById("duration-plan-data");
   const durationRoot = document.querySelector("[data-duration-root]");
+  const orderingScript = document.getElementById("ordering-data");
+  const orderingRoot = document.querySelector("[data-ordering-root]");
   const roleplayScript = document.getElementById("roleplay-data");
   const root = document.querySelector("[data-roleplay-root]");
 
@@ -50,6 +52,66 @@
     applyDuration(selected);
   }
 
+  document.querySelectorAll("[data-check-blank]").forEach((button) => {
+    button.addEventListener("click", function () {
+      const card = button.closest(".exercise-card");
+      const input = card.querySelector("[data-blank-input]");
+      const feedback = card.querySelector("[data-blank-feedback]");
+      const answer = (input.dataset.answer || "").trim().replace(/\s+/g, "");
+      const typed = input.value.trim().replace(/\s+/g, "");
+
+      if (!typed) {
+        feedback.textContent = "먼저 정답을 입력해 보세요.";
+        feedback.dataset.state = "idle";
+        return;
+      }
+
+      if (typed === answer) {
+        feedback.textContent = "좋아요. 정답이에요.";
+        feedback.dataset.state = "correct";
+      } else {
+        feedback.textContent = `다시 생각해 보세요. 정답: ${input.dataset.answer}`;
+        feedback.dataset.state = "incorrect";
+      }
+    });
+  });
+
+  if (orderingScript && orderingRoot) {
+    const orderingItems = JSON.parse(orderingScript.textContent);
+    const list = orderingRoot.querySelector("[data-ordering-list]");
+    const shuffleButton = orderingRoot.querySelector("[data-ordering-shuffle]");
+    const answerButton = orderingRoot.querySelector("[data-ordering-answer]");
+
+    function renderOrdering(items) {
+      list.innerHTML = "";
+      items.forEach((item, index) => {
+        const row = document.createElement("div");
+        row.className = "ordering-item";
+        row.innerHTML = `<span class="ordering-number">${index + 1}</span><span>${item}</span>`;
+        list.appendChild(row);
+      });
+    }
+
+    function shuffled(items) {
+      const copy = items.slice();
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    shuffleButton.addEventListener("click", function () {
+      renderOrdering(shuffled(orderingItems));
+    });
+
+    answerButton.addEventListener("click", function () {
+      renderOrdering(orderingItems);
+    });
+
+    renderOrdering(shuffled(orderingItems));
+  }
+
   if (!roleplayScript || !root) {
     return;
   }
@@ -58,12 +120,10 @@
   const chatLog = root.querySelector("[data-chat-log]");
   const input = root.querySelector("[data-chat-input]");
   const sendButton = root.querySelector("[data-send-button]");
-  const speechButton = root.querySelector("[data-speech-button]");
   const coachMessage = root.querySelector("[data-coach-message]");
   const coachExamples = root.querySelector("[data-coach-examples]");
 
   let currentTurn = 0;
-  let speechRecognition = null;
 
   function setCoachFeedback(message, examples) {
     coachMessage.textContent = message;
@@ -132,39 +192,6 @@
       handleStudentTurn(input.value);
     }
   });
-
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    speechButton.disabled = true;
-    speechButton.textContent = "음성 입력 미지원";
-  } else {
-    speechRecognition = new SpeechRecognition();
-    speechRecognition.lang = "ko-KR";
-    speechRecognition.interimResults = false;
-    speechRecognition.maxAlternatives = 1;
-
-    speechRecognition.addEventListener("result", function (event) {
-      const transcript = event.results[0][0].transcript || "";
-      input.value = transcript;
-      handleStudentTurn(transcript);
-    });
-
-    speechRecognition.addEventListener("end", function () {
-      speechButton.dataset.active = "false";
-      speechButton.textContent = "음성 입력";
-    });
-
-    speechButton.addEventListener("click", function () {
-      if (speechButton.dataset.active === "true") {
-        speechRecognition.stop();
-        return;
-      }
-
-      speechButton.dataset.active = "true";
-      speechButton.textContent = "듣는 중...";
-      speechRecognition.start();
-    });
-  }
 
   if (roleplay.openingMessage) {
     appendMessage(roleplay.teacherRole, roleplay.openingMessage, "teacher");
