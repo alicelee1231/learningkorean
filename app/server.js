@@ -151,6 +151,12 @@ function renderList(items) {
   return items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 }
 
+function renderIndexedList(items) {
+  return items
+    .map((item, index) => `<li data-item-index="${index}">${escapeHtml(item)}</li>`)
+    .join("");
+}
+
 function renderTable(rows) {
   const body = rows
     .map(
@@ -173,8 +179,8 @@ function renderLessonPage(lesson, payload) {
 
   const expressionsRows = lesson.keyExpressions
     .map(
-      (item) => `
-      <tr>
+      (item, index) => `
+      <tr data-item-index="${index}">
         <td>${escapeHtml(item.expression)}</td>
         <td>${escapeHtml(item.meaning)}</td>
         <td>${escapeHtml(item.usage)}</td>
@@ -185,8 +191,8 @@ function renderLessonPage(lesson, payload) {
 
   const vocabularyRows = lesson.vocabulary
     .map(
-      (item) => `
-      <tr>
+      (item, index) => `
+      <tr data-item-index="${index}">
         <td>${escapeHtml(item.word)}</td>
         <td>${escapeHtml(item.coreMeaning)}</td>
         <td>${escapeHtml(item.collocations)}</td>
@@ -197,8 +203,8 @@ function renderLessonPage(lesson, payload) {
 
   const dialogueMarkup = lesson.dialogue
     .map(
-      (line) => `
-        <div class="dialogue-line">
+      (line, index) => `
+        <div class="dialogue-line" data-item-index="${index}">
           <span class="speaker">${escapeHtml(line.speaker)}:</span>
           <span>${escapeHtml(line.korean)}</span>
           ${line.translation ? `<span class="translation">${escapeHtml(line.translation)}</span>` : ""}
@@ -208,8 +214,8 @@ function renderLessonPage(lesson, payload) {
 
   const grammarMarkup = lesson.grammar
     .map(
-      (point) => `
-      <article class="card">
+      (point, index) => `
+      <article class="card" data-item-index="${index}">
         <h3>${escapeHtml(point.name)}</h3>
         <p><strong>형태:</strong> ${escapeHtml(point.form)}</p>
         <p><strong>의미:</strong> ${escapeHtml(point.meaning)}</p>
@@ -227,6 +233,26 @@ function renderLessonPage(lesson, payload) {
   };
   const lessonLevel = levelLabelMap[lesson.level] || lesson.level;
   const roleplayData = lesson.roleplayMode || null;
+  const durationPlan = {
+    "25": {
+      summary: "25분 수업용 압축 보기",
+      limits: {
+        warmup: 1,
+        expressions: 3,
+        grammar: 1,
+        dialogue: 4,
+        pronunciation: 2,
+        substitution: 2,
+        roleplayPractice: 2
+      },
+      hiddenSections: ["vocabulary", "freeSpeaking", "homework"]
+    },
+    "50": {
+      summary: "50분 수업용 전체 보기",
+      limits: {},
+      hiddenSections: []
+    }
+  };
 
   return renderLayout({
     title: lesson.title,
@@ -243,12 +269,31 @@ function renderLessonPage(lesson, payload) {
         </div>
       </section>
 
-      <section class="panel">
-        <h2>도입 질문</h2>
-        <ul>${renderList(lesson.warmupQuestions)}</ul>
+      <section class="panel duration-panel" data-duration-root>
+        <div class="duration-header">
+          <div>
+            <h2>수업 시간 선택</h2>
+            <p class="duration-summary" data-duration-summary>50분 수업용 전체 보기</p>
+          </div>
+          <div class="duration-options" role="radiogroup" aria-label="수업 시간 선택">
+            <label class="duration-option">
+              <input type="radio" name="lesson-duration" value="25" data-duration-option />
+              <span>25분 수업</span>
+            </label>
+            <label class="duration-option">
+              <input type="radio" name="lesson-duration" value="50" data-duration-option checked />
+              <span>50분 수업</span>
+            </label>
+          </div>
+        </div>
       </section>
 
-      <section class="panel">
+      <section class="panel" data-section="warmup">
+        <h2>도입 질문</h2>
+        <ul>${renderIndexedList(lesson.warmupQuestions)}</ul>
+      </section>
+
+      <section class="panel" data-section="expressions">
         <h2>핵심 표현</h2>
         <table>
           <thead>
@@ -258,12 +303,12 @@ function renderLessonPage(lesson, payload) {
         </table>
       </section>
 
-      <section class="panel">
+      <section class="panel" data-section="grammar">
         <h2>문법 설명</h2>
         <div class="cards">${grammarMarkup}</div>
       </section>
 
-      <section class="panel">
+      <section class="panel" data-section="dialogue">
         <h2>핵심 대화</h2>
         <div class="dialogue">${dialogueMarkup}</div>
       </section>
@@ -271,7 +316,7 @@ function renderLessonPage(lesson, payload) {
       ${
         roleplayData
           ? `
-      <section class="panel">
+      <section class="panel" data-section="interactiveRoleplay">
         <h2>상황극 대화 연습</h2>
         <div class="roleplay-meta">
           <div><strong>상황</strong><span>${escapeHtml(roleplayData.scene)}</span></div>
@@ -298,12 +343,12 @@ function renderLessonPage(lesson, payload) {
           : ""
       }
 
-      <section class="panel">
+      <section class="panel" data-section="pronunciation">
         <h2>발음 연습</h2>
-        <ul>${renderList(lesson.pronunciationNotes)}</ul>
+        <ul>${renderIndexedList(lesson.pronunciationNotes)}</ul>
       </section>
 
-      <section class="panel">
+      <section class="panel" data-section="vocabulary">
         <h2>어휘 확장</h2>
         <table>
           <thead>
@@ -314,31 +359,32 @@ function renderLessonPage(lesson, payload) {
       </section>
 
       <section class="panel split">
-        <div>
+        <div data-section="substitution">
           <h2>바꿔 말하기 연습</h2>
           <p class="base-pattern">${escapeHtml(lesson.substitution.basePattern)}</p>
-          <ul>${renderList(lesson.substitution.examples)}</ul>
+          <ul>${renderIndexedList(lesson.substitution.examples)}</ul>
         </div>
-        <div>
+        <div data-section="freeSpeaking">
           <h2>자유 말하기</h2>
-          <ul>${renderList(lesson.freeSpeakingQuestions)}</ul>
+          <ul>${renderIndexedList(lesson.freeSpeakingQuestions)}</ul>
         </div>
       </section>
 
       <section class="panel split">
-        <div>
+        <div data-section="roleplayPractice">
           <h2>역할극 연습</h2>
-          <ul>${renderList(lesson.roleplayPractice)}</ul>
+          <ul>${renderIndexedList(lesson.roleplayPractice)}</ul>
         </div>
-        <div>
+        <div data-section="homework">
           <h2>숙제</h2>
-          <ul>${renderList(lesson.homework)}</ul>
+          <ul>${renderIndexedList(lesson.homework)}</ul>
         </div>
       </section>
     `,
-    extraScripts: roleplayData
-      ? `<script id="roleplay-data" type="application/json">${safeJsonForScript(roleplayData)}</script>`
-      : ""
+    extraScripts: `
+      <script id="duration-plan-data" type="application/json">${safeJsonForScript(durationPlan)}</script>
+      ${roleplayData ? `<script id="roleplay-data" type="application/json">${safeJsonForScript(roleplayData)}</script>` : ""}
+    `
   });
 }
 

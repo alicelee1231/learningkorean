@@ -1,6 +1,54 @@
 (function () {
+  const durationScript = document.getElementById("duration-plan-data");
+  const durationRoot = document.querySelector("[data-duration-root]");
   const roleplayScript = document.getElementById("roleplay-data");
   const root = document.querySelector("[data-roleplay-root]");
+
+  if (durationScript && durationRoot) {
+    const durationPlan = JSON.parse(durationScript.textContent);
+    const summary = durationRoot.querySelector("[data-duration-summary]");
+    const options = Array.from(durationRoot.querySelectorAll("[data-duration-option]"));
+
+    function applyDuration(value) {
+      const plan = durationPlan[value] || durationPlan["50"];
+      document.documentElement.dataset.lessonDuration = value;
+      if (summary) {
+        summary.textContent = plan.summary;
+      }
+
+      document.querySelectorAll("[data-section]").forEach((section) => {
+        const sectionName = section.getAttribute("data-section");
+        const hidden = (plan.hiddenSections || []).includes(sectionName);
+        section.hidden = hidden;
+      });
+
+      document.querySelectorAll("[data-item-index]").forEach((item) => {
+        item.hidden = false;
+      });
+
+      Object.entries(plan.limits || {}).forEach(([sectionName, limit]) => {
+        const section = document.querySelector(`[data-section="${sectionName}"]`);
+        if (!section) {
+          return;
+        }
+        section.querySelectorAll("[data-item-index]").forEach((item) => {
+          const index = Number(item.getAttribute("data-item-index"));
+          item.hidden = index >= limit;
+        });
+      });
+    }
+
+    options.forEach((option) => {
+      option.addEventListener("change", function () {
+        if (option.checked) {
+          applyDuration(option.value);
+        }
+      });
+    });
+
+    const selected = options.find((option) => option.checked)?.value || "50";
+    applyDuration(selected);
+  }
 
   if (!roleplayScript || !root) {
     return;
