@@ -1,91 +1,91 @@
 {
   "id": "sample-cafe-ordering",
-  "title": "Ordering at a Cafe",
+  "title": "카페에서 주문하기",
   "level": "Beginner",
-  "topic": "Cafe",
-  "speakingGoal": "Order a drink naturally and ask about options.",
-  "grammarGoal": "Use 주세요 and simple choice questions.",
+  "topic": "카페",
+  "speakingGoal": "음료를 자연스럽게 주문하고 옵션을 물어볼 수 있어요.",
+  "grammarGoal": "`주세요`와 간단한 선택 질문을 연습해요.",
   "warmupQuestions": [
-    "What drinks do you usually order?",
-    "Do you prefer hot drinks or iced drinks?",
-    "Have you ordered in Korean before?"
+    "보통 카페에서 어떤 음료를 주문해요?",
+    "따뜻한 음료를 더 좋아해요, 아이스 음료를 더 좋아해요?",
+    "한국어로 주문해 본 적이 있어요?"
   ],
   "keyExpressions": [
     {
       "expression": "아메리카노 한 잔 주세요.",
-      "meaning": "One Americano, please.",
-      "usage": "Ordering a drink",
-      "notes": "Basic cafe pattern"
+      "meaning": "음료를 주문할 때 쓰는 가장 기본 표현이에요.",
+      "usage": "음료 주문",
+      "notes": "`한 잔 주세요` 패턴으로 바꿔 연습할 수 있어요."
     },
     {
       "expression": "따뜻한 거예요, 아이스예요?",
-      "meaning": "Is it hot or iced?",
-      "usage": "Asking about options",
-      "notes": "Useful either-or question"
+      "meaning": "온도 옵션을 물어볼 때 쓰는 선택 질문이에요.",
+      "usage": "옵션 확인",
+      "notes": "실제 카페에서 자주 듣는 질문이에요."
     },
     {
       "expression": "큰 사이즈로 주세요.",
-      "meaning": "Please make it a large size.",
-      "usage": "Changing the size",
-      "notes": "Use 로 for the chosen option"
+      "meaning": "사이즈를 선택할 때 쓰는 표현이에요.",
+      "usage": "사이즈 선택",
+      "notes": "`로 주세요`를 이용해 옵션을 정해 보세요."
     },
     {
       "expression": "여기서 마실게요.",
-      "meaning": "I will drink it here.",
-      "usage": "At checkout",
-      "notes": "Common fixed phrase"
+      "meaning": "매장에서 먹고 간다고 말할 때 써요.",
+      "usage": "매장 이용 여부 말하기",
+      "notes": "통째로 외워 두면 좋아요."
     },
     {
       "expression": "뭐가 제일 많이 나가요?",
-      "meaning": "What sells the most?",
-      "usage": "Asking for a recommendation",
-      "notes": "Natural cafe question"
+      "meaning": "추천 메뉴를 물어볼 때 자연스러운 표현이에요.",
+      "usage": "추천 요청",
+      "notes": "원어민이 자주 쓰는 카페 질문이에요."
     }
   ],
   "dialogue": [
     {
       "speaker": "A",
       "korean": "어서 오세요.",
-      "translation": "Welcome."
+      "translation": ""
     },
     {
       "speaker": "B",
       "korean": "아메리카노 한 잔 주세요.",
-      "translation": "One Americano, please."
+      "translation": ""
     },
     {
       "speaker": "A",
       "korean": "따뜻한 거예요, 아이스예요?",
-      "translation": "Is it hot or iced?"
+      "translation": ""
     },
     {
       "speaker": "B",
       "korean": "아이스로 주세요.",
-      "translation": "Iced, please."
+      "translation": ""
     },
     {
       "speaker": "A",
       "korean": "작은 사이즈예요, 큰 사이즈예요?",
-      "translation": "Small size or large size?"
+      "translation": ""
     },
     {
       "speaker": "B",
       "korean": "큰 사이즈로 주세요.",
-      "translation": "Large size, please."
+      "translation": ""
     }
   ],
   "pronunciationNotes": [
-    "Chunk the sentence as 아메리카노 / 한 잔 / 주세요.",
-    "Raise the intonation slightly for choice questions.",
-    "Repeat 큰 사이즈 and 작은 사이즈 slowly before saying them at full speed."
+    "`아메리카노 / 한 잔 / 주세요`처럼 끊어 읽어 보세요.",
+    "선택 질문은 끝을 살짝 올려서 말해 보세요.",
+    "`큰 사이즈`, `작은 사이즈`를 천천히 연습한 뒤 자연스럽게 이어 말해 보세요."
   ],
   "grammar": [
     {
       "name": "N + 주세요",
-      "form": "noun + 주세요",
-      "meaning": "Please give me noun.",
-      "whyItAppears": "It is the basic pattern for ordering.",
-      "commonMistake": "Learners sometimes say only the menu item without 주세요.",
+      "form": "명사 + 주세요",
+      "meaning": "무언가를 공손하게 부탁할 때 써요.",
+      "whyItAppears": "카페 주문에서 가장 기본이 되는 표현이에요.",
+      "commonMistake": "메뉴 이름만 말하고 `주세요`를 빼먹는 경우가 많아요.",
       "examples": [
         "물 주세요.",
         "케이크도 주세요."
@@ -93,10 +93,10 @@
     },
     {
       "name": "N + 로 주세요",
-      "form": "noun + 로 주세요",
-      "meaning": "Please make it or give it as noun.",
-      "whyItAppears": "It helps learners choose a size or option.",
-      "commonMistake": "Learners often confuse 로 with 를.",
+      "form": "명사 + 로 주세요",
+      "meaning": "여러 선택지 중 하나를 정할 때 써요.",
+      "whyItAppears": "사이즈나 온도처럼 옵션을 선택할 때 꼭 필요해요.",
+      "commonMistake": "`로`와 `를`을 헷갈리는 경우가 많아요.",
       "examples": [
         "뜨거운 걸로 주세요.",
         "이걸로 주세요."
@@ -106,31 +106,31 @@
   "vocabulary": [
     {
       "word": "주문",
-      "coreMeaning": "order",
+      "coreMeaning": "음식이나 음료를 부탁하는 것",
       "collocations": "주문하다, 주문을 받다",
       "example": "지금 주문할게요."
     },
     {
       "word": "사이즈",
-      "coreMeaning": "size",
+      "coreMeaning": "크기",
       "collocations": "큰 사이즈, 작은 사이즈",
       "example": "큰 사이즈 있어요?"
     },
     {
       "word": "추천",
-      "coreMeaning": "recommendation",
+      "coreMeaning": "권하는 것",
       "collocations": "추천하다, 추천 메뉴",
       "example": "추천 메뉴 뭐예요?"
     },
     {
       "word": "따뜻하다",
-      "coreMeaning": "to be warm",
+      "coreMeaning": "온도가 따뜻하다",
       "collocations": "따뜻한 커피, 따뜻한 차",
       "example": "저는 따뜻한 커피 좋아해요."
     },
     {
       "word": "아이스",
-      "coreMeaning": "iced",
+      "coreMeaning": "차가운 음료",
       "collocations": "아이스 아메리카노, 아이스로 하다",
       "example": "아이스로 바꿔 주세요."
     }
@@ -149,13 +149,61 @@
     "좋아하는 음료를 한국어로 설명할 수 있어요?"
   ],
   "roleplayPractice": [
-    "Teacher is the cafe worker and student is the customer.",
-    "Change the drink and order again.",
-    "Add one follow-up question about size or temperature."
+    "선생님은 카페 직원 역할을 하고, 학생은 손님 역할을 해요.",
+    "음료를 바꿔서 다시 주문해 봐요.",
+    "사이즈나 온도에 대해 추가 질문을 한 가지 더 해 봐요."
   ],
   "homework": [
-    "Record yourself ordering three different drinks in Korean.",
-    "Write a four-line cafe dialogue.",
-    "Review 주세요 and 로 주세요."
-  ]
+    "한국어로 음료 세 가지를 주문하는 녹음을 해 와요.",
+    "4문장 카페 대화문을 써 와요.",
+    "`주세요`, `로 주세요` 표현을 다시 복습해요."
+  ],
+  "roleplayMode": {
+    "scene": "카페에서 음료 주문하고 옵션 고르기",
+    "teacherRole": "카페 직원",
+    "studentRole": "손님",
+    "instructions": "음료 주문, 온도 선택, 사이즈 선택 순서로 말해 보세요. 타이핑하거나 음성 입력으로 연습할 수 있어요.",
+    "openingMessage": "안녕하세요. 주문 도와드릴게요.",
+    "initialCoachMessage": "먼저 메뉴를 주문해 보세요. `아메리카노 한 잔 주세요`처럼 말하면 좋아요.",
+    "initialExamples": [
+      "라테 한 잔 주세요.",
+      "아메리카노 한 잔 주세요."
+    ],
+    "successMessage": "좋아요. 카페 주문 흐름이 자연스러워요.",
+    "turns": [
+      {
+        "expectedKeywords": ["주세요", "한 잔", "아메리카노", "라테", "차", "주스"],
+        "teacherReply": "따뜻한 거예요, 아이스예요?",
+        "coachTip": "메뉴 이름 뒤에 `한 잔 주세요`를 붙여 주문해 보세요.",
+        "repairExample": "예: 아메리카노 한 잔 주세요.",
+        "extraExamples": [
+          "라테 한 잔 주세요.",
+          "주스 한 잔 주세요."
+        ],
+        "successMessage": "첫 주문이 자연스럽게 나왔어요."
+      },
+      {
+        "expectedKeywords": ["아이스", "따뜻한", "뜨거운"],
+        "teacherReply": "작은 사이즈예요, 큰 사이즈예요?",
+        "coachTip": "온도를 선택해 보세요. `아이스로 주세요`처럼 말할 수 있어요.",
+        "repairExample": "예: 아이스로 주세요.",
+        "extraExamples": [
+          "따뜻한 걸로 주세요.",
+          "뜨거운 걸로 주세요."
+        ],
+        "successMessage": "온도 선택이 잘 되었어요."
+      },
+      {
+        "expectedKeywords": ["큰", "작은", "사이즈", "로 주세요"],
+        "teacherReply": "네, 주문 도와드릴게요.",
+        "coachTip": "사이즈를 골라 보세요. `큰 사이즈로 주세요`라고 말하면 좋아요.",
+        "repairExample": "예: 큰 사이즈로 주세요.",
+        "extraExamples": [
+          "작은 사이즈로 주세요.",
+          "중간 사이즈로 주세요."
+        ],
+        "successMessage": "사이즈 선택까지 잘 마무리했어요."
+      }
+    ]
+  }
 }

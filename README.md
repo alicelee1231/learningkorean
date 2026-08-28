@@ -94,6 +94,22 @@ npm run generate-link -- sample-cafe-ordering "Student Name" 60
 
 This creates a signed URL that works for 60 minutes.
 
+If you already have a local `.env` file, the script reads it automatically, so you do not need to prepend environment variables manually.
+
+### Fast Daily Use
+
+For everyday lesson prep, run:
+
+```bash
+npm run generate-link -- sample-cafe-ordering "Student Name" 60
+```
+
+Format:
+
+```bash
+npm run generate-link -- <lesson-id> "Student Name" <minutes>
+```
+
 ### Current Limits
 
 - A student can still share the link during the valid time window.

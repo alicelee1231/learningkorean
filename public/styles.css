@@ -197,6 +197,143 @@ th {
   font-size: 0.94rem;
 }
 
+.roleplay-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.roleplay-meta div {
+  padding: 14px;
+  border-radius: 16px;
+  background: #fff7f2;
+  border: 1px solid var(--accent-soft);
+}
+
+.roleplay-meta strong,
+.roleplay-meta span {
+  display: block;
+}
+
+.roleplay-meta strong {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.roleplay-help {
+  margin-top: 0;
+  color: var(--muted);
+}
+
+.roleplay-app {
+  display: grid;
+  gap: 16px;
+}
+
+.chat-log {
+  min-height: 280px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #fffdf8 0%, #fff8ef 100%);
+  display: grid;
+  gap: 12px;
+}
+
+.chat-bubble {
+  max-width: 86%;
+  padding: 14px 16px;
+  border-radius: 20px;
+  display: grid;
+  gap: 6px;
+  line-height: 1.7;
+}
+
+.chat-bubble strong {
+  font-size: 0.88rem;
+}
+
+.chat-bubble.teacher {
+  background: #fff4ec;
+  border: 1px solid var(--accent-soft);
+}
+
+.chat-bubble.student {
+  background: #2d2a26;
+  color: #fff7ec;
+  margin-left: auto;
+}
+
+.chat-bubble.coach {
+  background: #f7f2ff;
+  border: 1px solid #dccdff;
+}
+
+.coach-box {
+  padding: 18px;
+  border-radius: 18px;
+  background: #fffaf2;
+  border: 1px solid var(--line);
+}
+
+.coach-box strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.coach-box p {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.chat-controls {
+  display: grid;
+  gap: 12px;
+}
+
+.chat-controls textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  font: inherit;
+  background: #fffdf8;
+}
+
+.chat-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.primary-button,
+.secondary-button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.primary-button {
+  background: var(--accent);
+  color: white;
+}
+
+.secondary-button {
+  background: #efe4d8;
+  color: var(--ink);
+}
+
+.secondary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .cards {
   display: grid;
   gap: 16px;
@@ -233,5 +370,13 @@ code {
   .panel {
     padding: 20px;
     border-radius: 20px;
+  }
+
+  .chat-bubble {
+    max-width: 100%;
+  }
+
+  .chat-actions {
+    flex-direction: column;
   }
 }
