@@ -87,6 +87,16 @@
     return text.replace(/\s+/g, "").toLowerCase();
   }
 
+  function matchesTurn(turn, normalizedText) {
+    if (Array.isArray(turn.expectedKeywordGroups) && turn.expectedKeywordGroups.length > 0) {
+      return turn.expectedKeywordGroups.every((group) =>
+        group.some((keyword) => normalizedText.includes(normalize(keyword)))
+      );
+    }
+
+    return turn.expectedKeywords.some((keyword) => normalizedText.includes(normalize(keyword)));
+  }
+
   function handleStudentTurn(rawText) {
     const text = rawText.trim();
     if (!text) {
@@ -98,7 +108,7 @@
 
     const turn = roleplay.turns[currentTurn] || roleplay.turns[roleplay.turns.length - 1];
     const normalized = normalize(text);
-    const matched = turn.expectedKeywords.some((keyword) => normalized.includes(normalize(keyword)));
+    const matched = matchesTurn(turn, normalized);
 
     if (matched) {
       setCoachFeedback(turn.successMessage || roleplay.successMessage, turn.extraExamples || []);
