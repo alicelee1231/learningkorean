@@ -157,29 +157,6 @@ function renderIndexedList(items) {
     .join("");
 }
 
-function renderBlankExercises(items) {
-  return items
-    .map(
-      (item, index) => `
-        <div class="exercise-card" data-item-index="${index}">
-          <p class="exercise-prompt">${escapeHtml(item.prompt)}</p>
-          <div class="exercise-controls">
-            <input
-              type="text"
-              class="exercise-input"
-              data-blank-input
-              data-answer="${escapeHtml(item.answer)}"
-              placeholder="정답을 입력해 보세요."
-            />
-            <button type="button" class="secondary-button" data-check-blank>정답 확인</button>
-          </div>
-          <p class="exercise-hint">힌트: ${escapeHtml(item.hint)}</p>
-          <p class="exercise-feedback" data-blank-feedback></p>
-        </div>`
-    )
-    .join("");
-}
-
 function renderTable(rows) {
   const body = rows
     .map(
@@ -276,8 +253,6 @@ function renderLessonPage(lesson, payload) {
       hiddenSections: []
     }
   };
-  const orderingLines = lesson.dialogue.map((line) => `${line.speaker}: ${line.korean}`);
-
   return renderLayout({
     title: lesson.title,
     body: `
@@ -335,25 +310,6 @@ function renderLessonPage(lesson, payload) {
       <section class="panel" data-section="dialogue">
         <h2>핵심 대화</h2>
         <div class="dialogue">${dialogueMarkup}</div>
-      </section>
-
-      <section class="panel" data-section="blankExercises">
-        <h2>빈칸 채우기</h2>
-        <div class="exercise-grid">
-          ${renderBlankExercises(lesson.blankExercises)}
-        </div>
-      </section>
-
-      <section class="panel" data-section="orderingExercise">
-        <h2>문장 순서 맞추기</h2>
-        <p class="roleplay-help">문장을 섞어서 보여줘요. 대화 순서를 생각해 보고 정답도 확인해 보세요.</p>
-        <div class="ordering-app" data-ordering-root>
-          <div class="ordering-list" data-ordering-list></div>
-          <div class="chat-actions">
-            <button type="button" class="secondary-button" data-ordering-shuffle>문장 섞기</button>
-            <button type="button" class="secondary-button" data-ordering-answer>정답 보기</button>
-          </div>
-        </div>
       </section>
 
       ${
@@ -425,7 +381,6 @@ function renderLessonPage(lesson, payload) {
     `,
     extraScripts: `
       <script id="duration-plan-data" type="application/json">${safeJsonForScript(durationPlan)}</script>
-      <script id="ordering-data" type="application/json">${safeJsonForScript(orderingLines)}</script>
       ${roleplayData ? `<script id="roleplay-data" type="application/json">${safeJsonForScript(roleplayData)}</script>` : ""}
     `
   });

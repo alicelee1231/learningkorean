@@ -277,88 +277,6 @@ th {
   color: var(--muted);
 }
 
-.exercise-grid {
-  display: grid;
-  gap: 16px;
-}
-
-.exercise-card,
-.ordering-item {
-  padding: 18px;
-  border-radius: 18px;
-  background: #fffaf2;
-  border: 1px solid var(--line);
-}
-
-.exercise-prompt {
-  margin-top: 0;
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-
-.exercise-controls {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.exercise-input {
-  flex: 1 1 260px;
-  min-width: 220px;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  font: inherit;
-  background: #fffdf8;
-}
-
-.exercise-hint,
-.exercise-feedback {
-  margin-bottom: 0;
-}
-
-.exercise-hint {
-  color: var(--muted);
-}
-
-.exercise-feedback[data-state="correct"] {
-  color: #0f7b4a;
-}
-
-.exercise-feedback[data-state="incorrect"] {
-  color: #b6452c;
-}
-
-.ordering-app {
-  display: grid;
-  gap: 16px;
-}
-
-.ordering-list {
-  display: grid;
-  gap: 12px;
-}
-
-.ordering-item {
-  display: grid;
-  grid-template-columns: 36px 1fr;
-  gap: 12px;
-  align-items: start;
-}
-
-.ordering-number {
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #2d2a26;
-  color: #fff7ec;
-  font-weight: 700;
-}
-
 .roleplay-app {
   display: grid;
   gap: 16px;
@@ -516,10 +434,5 @@ code {
 
   .chat-actions {
     flex-direction: column;
-  }
-
-  .exercise-controls {
-    flex-direction: column;
-    align-items: stretch;
   }
 }

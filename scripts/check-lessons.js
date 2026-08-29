@@ -19,7 +19,6 @@ const requiredKeys = [
   "keyExpressions",
   "dialogue",
   "pronunciationNotes",
-  "blankExercises",
   "grammar",
   "vocabulary",
   "substitution",

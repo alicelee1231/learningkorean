@@ -1,8 +1,6 @@
 (function () {
   const durationScript = document.getElementById("duration-plan-data");
   const durationRoot = document.querySelector("[data-duration-root]");
-  const orderingScript = document.getElementById("ordering-data");
-  const orderingRoot = document.querySelector("[data-ordering-root]");
   const roleplayScript = document.getElementById("roleplay-data");
   const root = document.querySelector("[data-roleplay-root]");
 
@@ -52,66 +50,6 @@
     applyDuration(selected);
   }
 
-  document.querySelectorAll("[data-check-blank]").forEach((button) => {
-    button.addEventListener("click", function () {
-      const card = button.closest(".exercise-card");
-      const input = card.querySelector("[data-blank-input]");
-      const feedback = card.querySelector("[data-blank-feedback]");
-      const answer = (input.dataset.answer || "").trim().replace(/\s+/g, "");
-      const typed = input.value.trim().replace(/\s+/g, "");
-
-      if (!typed) {
-        feedback.textContent = "먼저 정답을 입력해 보세요.";
-        feedback.dataset.state = "idle";
-        return;
-      }
-
-      if (typed === answer) {
-        feedback.textContent = "좋아요. 정답이에요.";
-        feedback.dataset.state = "correct";
-      } else {
-        feedback.textContent = `다시 생각해 보세요. 정답: ${input.dataset.answer}`;
-        feedback.dataset.state = "incorrect";
-      }
-    });
-  });
-
-  if (orderingScript && orderingRoot) {
-    const orderingItems = JSON.parse(orderingScript.textContent);
-    const list = orderingRoot.querySelector("[data-ordering-list]");
-    const shuffleButton = orderingRoot.querySelector("[data-ordering-shuffle]");
-    const answerButton = orderingRoot.querySelector("[data-ordering-answer]");
-
-    function renderOrdering(items) {
-      list.innerHTML = "";
-      items.forEach((item, index) => {
-        const row = document.createElement("div");
-        row.className = "ordering-item";
-        row.innerHTML = `<span class="ordering-number">${index + 1}</span><span>${item}</span>`;
-        list.appendChild(row);
-      });
-    }
-
-    function shuffled(items) {
-      const copy = items.slice();
-      for (let i = copy.length - 1; i > 0; i -= 1) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    }
-
-    shuffleButton.addEventListener("click", function () {
-      renderOrdering(shuffled(orderingItems));
-    });
-
-    answerButton.addEventListener("click", function () {
-      renderOrdering(orderingItems);
-    });
-
-    renderOrdering(shuffled(orderingItems));
-  }
-
   if (!roleplayScript || !root) {
     return;
   }
@@ -157,6 +95,10 @@
     return turn.expectedKeywords.some((keyword) => normalizedText.includes(normalize(keyword)));
   }
 
+  function advanceTurn() {
+    currentTurn = Math.min(currentTurn + 1, roleplay.turns.length - 1);
+  }
+
   function handleStudentTurn(rawText) {
     const text = rawText.trim();
     if (!text) {
@@ -172,15 +114,20 @@
 
     if (matched) {
       setCoachFeedback(turn.successMessage || roleplay.successMessage, turn.extraExamples || []);
-      if (turn.teacherReply) {
-        appendMessage(roleplay.teacherRole, turn.teacherReply, "teacher");
+    } else {
+      setCoachFeedback(
+        turn.coachTip || "좋아요. 의미는 전달됐어요. 아래 예시처럼 더 자연스럽게도 말할 수 있어요.",
+        turn.extraExamples || []
+      );
+      if (turn.repairExample) {
+        appendMessage("코치", `이렇게도 말할 수 있어요: ${turn.repairExample}`, "coach");
       }
-      currentTurn = Math.min(currentTurn + 1, roleplay.turns.length - 1);
-      return;
     }
 
-    setCoachFeedback(turn.coachTip, turn.extraExamples || []);
-    appendMessage("코치", turn.repairExample, "coach");
+    if (turn.teacherReply) {
+      appendMessage(roleplay.teacherRole, turn.teacherReply, "teacher");
+    }
+    advanceTurn();
   }
 
   sendButton.addEventListener("click", function () {
