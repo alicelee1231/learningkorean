@@ -116,12 +116,9 @@
       setCoachFeedback(turn.successMessage || roleplay.successMessage, turn.extraExamples || []);
     } else {
       setCoachFeedback(
-        turn.coachTip || "좋아요. 의미는 전달됐어요. 아래 예시처럼 더 자연스럽게도 말할 수 있어요.",
-        turn.extraExamples || []
+        turn.coachTip || "좋아요. 의미는 전달됐어요. 계속 이어서 말해 보세요.",
+        []
       );
-      if (turn.repairExample) {
-        appendMessage("코치", `이렇게도 말할 수 있어요: ${turn.repairExample}`, "coach");
-      }
     }
 
     advanceTurn();
