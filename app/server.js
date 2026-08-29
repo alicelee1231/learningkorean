@@ -54,8 +54,16 @@ function listLessons() {
         id: raw.id,
         title: raw.title,
         level: raw.level,
-        topic: raw.topic
+        topic: raw.topic,
+        sortOrder: Number(raw.sortOrder || 9999)
       };
+    })
+    .sort((left, right) => {
+      if (left.sortOrder !== right.sortOrder) {
+        return left.sortOrder - right.sortOrder;
+      }
+
+      return left.title.localeCompare(right.title, "ko");
     });
 }
 
@@ -95,9 +103,11 @@ function renderLandingPage() {
   const lessonsMarkup = listLessons()
     .map(
       (lesson) => `
-        <li class="lesson-card">
-          <strong>${escapeHtml(lesson.title)}</strong>
-          <span>${escapeHtml(lesson.level)} · ${escapeHtml(lesson.topic)}</span>
+        <li>
+          <a class="lesson-card lesson-link" href="/preview?lessonId=${encodeURIComponent(lesson.id)}">
+            <strong>${escapeHtml(lesson.title)}</strong>
+            <span>주제 · ${escapeHtml(lesson.topic)}</span>
+          </a>
         </li>`
     )
     .join("");
@@ -175,7 +185,9 @@ function renderTable(rows) {
 
 function renderLessonPage(lesson, payload) {
   const studentName = payload.studentName || "수강생";
-  const expiresAt = formatKoreanDate(payload.exp);
+  const isPreview = Boolean(payload.previewMode);
+  const accessLabel = isPreview ? "열람 방식" : "접속 만료";
+  const accessValue = isPreview ? "교사용 미리보기" : formatKoreanDate(payload.exp);
 
   const expressionsRows = lesson.keyExpressions
     .map(
@@ -264,7 +276,7 @@ function renderLessonPage(lesson, payload) {
           <div><strong>수강생</strong><span>${escapeHtml(studentName)}</span></div>
           <div><strong>주제</strong><span>${escapeHtml(lesson.topic)}</span></div>
           <div><strong>문법 목표</strong><span>${escapeHtml(lesson.grammarGoal)}</span></div>
-          <div><strong>접속 만료</strong><span>${escapeHtml(expiresAt)}</span></div>
+          <div><strong>${escapeHtml(accessLabel)}</strong><span>${escapeHtml(accessValue)}</span></div>
         </div>
       </section>
 
@@ -448,6 +460,25 @@ const server = http.createServer((request, response) => {
 
     response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     response.end(renderLessonPage(lesson, result.payload));
+    return;
+  }
+
+  if (url.pathname === "/preview") {
+    const lesson = loadLesson(url.searchParams.get("lessonId"));
+
+    if (!lesson) {
+      response.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(renderErrorPage("수업을 찾을 수 없어요.", "선택한 수업 자료를 불러오지 못했어요."));
+      return;
+    }
+
+    response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    response.end(
+      renderLessonPage(lesson, {
+        studentName: "미리보기",
+        previewMode: true
+      })
+    );
     return;
   }
 

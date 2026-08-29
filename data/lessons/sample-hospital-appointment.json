@@ -1,5 +1,6 @@
 {
   "id": "sample-hospital-appointment",
+  "sortOrder": 70,
   "title": "병원 예약하기",
   "level": "Intermediate",
   "topic": "병원",

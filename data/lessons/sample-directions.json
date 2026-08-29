@@ -1,5 +1,6 @@
 {
   "id": "sample-directions",
+  "sortOrder": 60,
   "title": "길 묻기",
   "level": "Beginner",
   "topic": "길 찾기",

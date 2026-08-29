@@ -1,5 +1,6 @@
 {
   "id": "sample-restaurant-ordering",
+  "sortOrder": 50,
   "title": "식당에서 주문하기",
   "level": "Beginner",
   "topic": "식당",
