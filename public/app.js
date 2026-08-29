@@ -124,9 +124,6 @@
       }
     }
 
-    if (turn.teacherReply) {
-      appendMessage(roleplay.teacherRole, turn.teacherReply, "teacher");
-    }
     advanceTurn();
   }
 

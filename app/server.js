@@ -323,6 +323,7 @@ function renderLessonPage(lesson, payload) {
           <div><strong>학생 역할</strong><span>${escapeHtml(roleplayData.studentRole)}</span></div>
         </div>
         <p class="roleplay-help">${escapeHtml(roleplayData.instructions)}</p>
+        <p class="roleplay-help">학생은 자유롭게 입력하고, 다음 대화는 선생님이 직접 이어가면 돼요.</p>
         <div class="roleplay-app" data-roleplay-root>
           <div class="chat-log" data-chat-log></div>
           <div class="coach-box" data-coach-box>
