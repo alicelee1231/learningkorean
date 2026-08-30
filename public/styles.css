@@ -84,6 +84,32 @@ h2 {
   margin-bottom: 20px;
 }
 
+.teacher-memo {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 18px;
+  background: #fff8f1;
+  border: 1px dashed var(--accent-soft);
+}
+
+.teacher-memo-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.teacher-memo-input {
+  width: 100%;
+  resize: vertical;
+  min-height: 110px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #fffdf8;
+  font: inherit;
+  color: var(--ink);
+}
+
 .meta-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));

@@ -183,6 +183,26 @@ function renderTable(rows) {
   return `<table><tbody>${body}</tbody></table>`;
 }
 
+function renderTeacherMemo(showTeacherNotes, lessonId, sectionKey, title) {
+  if (!showTeacherNotes) {
+    return "";
+  }
+
+  return `
+    <div class="teacher-memo">
+      <label class="teacher-memo-label" for="memo-${escapeHtml(sectionKey)}">${escapeHtml(title)} 메모</label>
+      <textarea
+        id="memo-${escapeHtml(sectionKey)}"
+        class="teacher-memo-input"
+        rows="4"
+        data-teacher-memo
+        data-lesson-id="${escapeHtml(lessonId)}"
+        data-section-key="${escapeHtml(sectionKey)}"
+        placeholder="${escapeHtml(title)}에서 관찰한 점이나 다음 수업 아이디어를 적어 보세요."
+      ></textarea>
+    </div>`;
+}
+
 function renderLessonPage(lesson, payload) {
   const studentName = payload.studentName || "수강생";
   const isPreview = Boolean(payload.previewMode);
@@ -280,11 +300,9 @@ function renderLessonPage(lesson, payload) {
   const roleplayData = lesson.roleplayMode || null;
   const durationPlan = {
     "25": {
-      summary: "25분 수업: 기본 자기소개, 핵심 레벨 체크 2개, 핵심 표현 3개, 짧은 대화와 역할 연습만 진행해요.",
+      summary: "25분 수업: 핵심 자기소개 질문, 필수 표현, 짧은 대화와 간단한 역할 연습 위주로 진행해요.",
       limits: {
         warmup: 1,
-        levelCheck: 2,
-        levelRubric: 2,
         expressions: 3,
         grammar: 1,
         dialogue: 4,
@@ -295,7 +313,7 @@ function renderLessonPage(lesson, payload) {
       hiddenSections: ["vocabulary", "freeSpeaking", "homework"]
     },
     "50": {
-      summary: "50분 수업: 자기소개, 취미, 강점, 학습 목표, 전체 레벨 체크와 확장 연습까지 모두 진행해요.",
+      summary: "50분 수업: 자기소개 전체 흐름, 취미와 목표 확장, 발음과 자유 말하기, 마무리 숙제까지 모두 진행해요.",
       limits: {},
       hiddenSections: []
     }
@@ -337,34 +355,8 @@ function renderLessonPage(lesson, payload) {
       <section class="panel" data-section="warmup">
         <h2>도입 질문</h2>
         <ul>${renderIndexedList(lesson.warmupQuestions)}</ul>
+        ${renderTeacherMemo(showTeacherNotes, lesson.id, "warmup", "도입 질문")}
       </section>
-
-      ${
-        levelCheck
-          ? `
-      <section class="panel" data-section="levelCheck">
-        <h2>${showTeacherNotes ? "첫 수업 레벨 체크" : "첫 수업 질문 연습"}</h2>
-        <p class="lead lesson-intro">${escapeHtml(showTeacherNotes ? levelCheck.intro : "자기소개를 하면서 질문에 자연스럽게 답해 보세요.")}</p>
-        <div class="cards">${levelCheckMarkup}</div>
-      </section>
-
-      ${
-        showTeacherNotes
-          ? `
-      <section class="panel split" data-section="levelRubric">
-        <div>
-          <h2>빠른 판정 가이드</h2>
-          <div class="cards">${levelRubricMarkup}</div>
-        </div>
-        <div>
-          <h2>수업 후 메모</h2>
-          <ul>${renderList(levelCheck.teacherNotes)}</ul>
-        </div>
-      </section>`
-          : ""
-      }`
-          : ""
-      }
 
       <section class="panel" data-section="expressions">
         <h2>핵심 표현</h2>
@@ -374,16 +366,19 @@ function renderLessonPage(lesson, payload) {
           </thead>
           <tbody>${expressionsRows}</tbody>
         </table>
+        ${renderTeacherMemo(showTeacherNotes, lesson.id, "expressions", "핵심 표현")}
       </section>
 
       <section class="panel" data-section="grammar">
         <h2>문법 설명</h2>
         <div class="cards">${grammarMarkup}</div>
+        ${renderTeacherMemo(showTeacherNotes, lesson.id, "grammar", "문법 설명")}
       </section>
 
       <section class="panel" data-section="dialogue">
         <h2>핵심 대화</h2>
         <div class="dialogue">${dialogueMarkup}</div>
+        ${renderTeacherMemo(showTeacherNotes, lesson.id, "dialogue", "핵심 대화")}
       </section>
 
       ${
@@ -412,6 +407,7 @@ function renderLessonPage(lesson, payload) {
             </div>
           </div>
         </div>
+        ${renderTeacherMemo(showTeacherNotes, lesson.id, "interactive-roleplay", "상황극 대화 연습")}
       </section>`
           : ""
       }
@@ -419,6 +415,7 @@ function renderLessonPage(lesson, payload) {
       <section class="panel" data-section="pronunciation">
         <h2>발음 연습</h2>
         <ul>${renderIndexedList(lesson.pronunciationNotes)}</ul>
+        ${renderTeacherMemo(showTeacherNotes, lesson.id, "pronunciation", "발음 연습")}
       </section>
 
       <section class="panel" data-section="vocabulary">
@@ -429,6 +426,7 @@ function renderLessonPage(lesson, payload) {
           </thead>
           <tbody>${vocabularyRows}</tbody>
         </table>
+        ${renderTeacherMemo(showTeacherNotes, lesson.id, "vocabulary", "어휘 확장")}
       </section>
 
       <section class="panel split">
@@ -436,10 +434,12 @@ function renderLessonPage(lesson, payload) {
           <h2>바꿔 말하기 연습</h2>
           <p class="base-pattern">${escapeHtml(lesson.substitution.basePattern)}</p>
           <ul>${renderIndexedList(lesson.substitution.examples)}</ul>
+          ${renderTeacherMemo(showTeacherNotes, lesson.id, "substitution", "바꿔 말하기 연습")}
         </div>
         <div data-section="freeSpeaking">
           <h2>자유 말하기</h2>
           <ul>${renderIndexedList(lesson.freeSpeakingQuestions)}</ul>
+          ${renderTeacherMemo(showTeacherNotes, lesson.id, "free-speaking", "자유 말하기")}
         </div>
       </section>
 
@@ -447,10 +447,12 @@ function renderLessonPage(lesson, payload) {
         <div data-section="roleplayPractice">
           <h2>역할극 연습</h2>
           <ul>${renderIndexedList(lesson.roleplayPractice)}</ul>
+          ${renderTeacherMemo(showTeacherNotes, lesson.id, "roleplay-practice", "역할극 연습")}
         </div>
         <div data-section="homework">
           <h2>숙제</h2>
           <ul>${renderIndexedList(lesson.homework)}</ul>
+          ${renderTeacherMemo(showTeacherNotes, lesson.id, "homework", "숙제")}
         </div>
       </section>
     `,

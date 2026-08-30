@@ -3,6 +3,7 @@
   const durationRoot = document.querySelector("[data-duration-root]");
   const roleplayScript = document.getElementById("roleplay-data");
   const root = document.querySelector("[data-roleplay-root]");
+  const memoInputs = Array.from(document.querySelectorAll("[data-teacher-memo]"));
 
   if (durationScript && durationRoot) {
     const durationPlan = JSON.parse(durationScript.textContent);
@@ -49,6 +50,21 @@
     const selected = options.find((option) => option.checked)?.value || "50";
     applyDuration(selected);
   }
+
+  memoInputs.forEach((input) => {
+    const lessonId = input.getAttribute("data-lesson-id");
+    const sectionKey = input.getAttribute("data-section-key");
+    const storageKey = `teacher-memo:${lessonId}:${sectionKey}`;
+    const savedValue = window.localStorage.getItem(storageKey);
+
+    if (savedValue) {
+      input.value = savedValue;
+    }
+
+    input.addEventListener("input", function () {
+      window.localStorage.setItem(storageKey, input.value);
+    });
+  });
 
   if (!roleplayScript || !root) {
     return;
