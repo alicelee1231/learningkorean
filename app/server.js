@@ -188,6 +188,7 @@ function renderLessonPage(lesson, payload) {
   const isPreview = Boolean(payload.previewMode);
   const accessLabel = isPreview ? "열람 방식" : "접속 만료";
   const accessValue = isPreview ? "교사용 미리보기" : formatKoreanDate(payload.exp);
+  const levelCheck = lesson.levelCheck || null;
 
   const expressionsRows = lesson.keyExpressions
     .map(
@@ -238,6 +239,33 @@ function renderLessonPage(lesson, payload) {
     )
     .join("");
 
+  const levelCheckMarkup = levelCheck
+    ? levelCheck.categories
+        .map(
+          (category, index) => `
+      <article class="card" data-item-index="${index}">
+        <h3>${escapeHtml(category.name)}</h3>
+        <p>${escapeHtml(category.goal)}</p>
+        <ul>${renderList(category.prompts)}</ul>
+        <p><strong>체크 포인트:</strong> ${escapeHtml(category.observe)}</p>
+      </article>`
+        )
+        .join("")
+    : "";
+
+  const levelRubricMarkup = levelCheck
+    ? levelCheck.rubric
+        .map(
+          (item, index) => `
+      <article class="card" data-item-index="${index}">
+        <h3>${escapeHtml(item.band)}</h3>
+        <p>${escapeHtml(item.description)}</p>
+        <p><strong>다음 수업 추천:</strong> ${escapeHtml(item.nextStep)}</p>
+      </article>`
+        )
+        .join("")
+    : "";
+
   const levelLabelMap = {
     Beginner: "초급",
     Intermediate: "중급",
@@ -250,6 +278,8 @@ function renderLessonPage(lesson, payload) {
       summary: "25분 수업용 압축 보기",
       limits: {
         warmup: 1,
+        levelCheck: 2,
+        levelRubric: 2,
         expressions: 3,
         grammar: 1,
         dialogue: 4,
@@ -303,6 +333,28 @@ function renderLessonPage(lesson, payload) {
         <h2>도입 질문</h2>
         <ul>${renderIndexedList(lesson.warmupQuestions)}</ul>
       </section>
+
+      ${
+        levelCheck
+          ? `
+      <section class="panel" data-section="levelCheck">
+        <h2>첫 수업 레벨 체크</h2>
+        <p class="lead lesson-intro">${escapeHtml(levelCheck.intro)}</p>
+        <div class="cards">${levelCheckMarkup}</div>
+      </section>
+
+      <section class="panel split" data-section="levelRubric">
+        <div>
+          <h2>빠른 판정 가이드</h2>
+          <div class="cards">${levelRubricMarkup}</div>
+        </div>
+        <div>
+          <h2>수업 후 메모</h2>
+          <ul>${renderList(levelCheck.teacherNotes)}</ul>
+        </div>
+      </section>`
+          : ""
+      }
 
       <section class="panel" data-section="expressions">
         <h2>핵심 표현</h2>
