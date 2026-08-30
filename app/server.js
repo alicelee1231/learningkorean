@@ -275,7 +275,7 @@ function renderLessonPage(lesson, payload) {
   const roleplayData = lesson.roleplayMode || null;
   const durationPlan = {
     "25": {
-      summary: "25분 수업용 압축 보기",
+      summary: "25분 수업: 기본 자기소개, 핵심 레벨 체크 2개, 핵심 표현 3개, 짧은 대화와 역할 연습만 진행해요.",
       limits: {
         warmup: 1,
         levelCheck: 2,
@@ -290,7 +290,7 @@ function renderLessonPage(lesson, payload) {
       hiddenSections: ["vocabulary", "freeSpeaking", "homework"]
     },
     "50": {
-      summary: "50분 수업용 전체 보기",
+      summary: "50분 수업: 자기소개, 취미, 강점, 학습 목표, 전체 레벨 체크와 확장 연습까지 모두 진행해요.",
       limits: {},
       hiddenSections: []
     }
