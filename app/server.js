@@ -186,6 +186,7 @@ function renderTable(rows) {
 function renderLessonPage(lesson, payload) {
   const studentName = payload.studentName || "수강생";
   const isPreview = Boolean(payload.previewMode);
+  const showTeacherNotes = isPreview;
   const accessLabel = isPreview ? "열람 방식" : "접속 만료";
   const accessValue = isPreview ? "교사용 미리보기" : formatKoreanDate(payload.exp);
   const levelCheck = lesson.levelCheck || null;
@@ -247,7 +248,11 @@ function renderLessonPage(lesson, payload) {
         <h3>${escapeHtml(category.name)}</h3>
         <p>${escapeHtml(category.goal)}</p>
         <ul>${renderList(category.prompts)}</ul>
-        <p><strong>체크 포인트:</strong> ${escapeHtml(category.observe)}</p>
+        ${
+          showTeacherNotes
+            ? `<p><strong>체크 포인트:</strong> ${escapeHtml(category.observe)}</p>`
+            : ""
+        }
       </article>`
         )
         .join("")
@@ -338,11 +343,14 @@ function renderLessonPage(lesson, payload) {
         levelCheck
           ? `
       <section class="panel" data-section="levelCheck">
-        <h2>첫 수업 레벨 체크</h2>
-        <p class="lead lesson-intro">${escapeHtml(levelCheck.intro)}</p>
+        <h2>${showTeacherNotes ? "첫 수업 레벨 체크" : "첫 수업 질문 연습"}</h2>
+        <p class="lead lesson-intro">${escapeHtml(showTeacherNotes ? levelCheck.intro : "자기소개를 하면서 질문에 자연스럽게 답해 보세요.")}</p>
         <div class="cards">${levelCheckMarkup}</div>
       </section>
 
+      ${
+        showTeacherNotes
+          ? `
       <section class="panel split" data-section="levelRubric">
         <div>
           <h2>빠른 판정 가이드</h2>
@@ -353,6 +361,8 @@ function renderLessonPage(lesson, payload) {
           <ul>${renderList(levelCheck.teacherNotes)}</ul>
         </div>
       </section>`
+          : ""
+      }`
           : ""
       }
 
